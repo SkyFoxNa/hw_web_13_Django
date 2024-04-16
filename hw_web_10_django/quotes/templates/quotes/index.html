@@ -1,0 +1,170 @@
+{% extends 'quotes/base.html' %}
+{% load extract %}
+{% load extract_user %}
+
+{% block title %}Quotes to Scrape{% endblock %}
+
+{% block content %}
+<div class="title">
+    <h1>
+        <a href="/" style="text-decoration: none">Quotes to Scrape</a>
+    </h1>
+
+</div>
+<div class="row">
+
+    <div class="center-panel">
+
+        <div class="left-panel">
+            <div class="tags-box-1">
+                {% if user.is_authenticated %}
+
+                <div class="alert alert-info" role="alert">
+                    User Name: {{ user_name }}
+                </div>
+
+                <div class="alert alert-primary" role="alert">
+                    <form method="GET" action="">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
+                                   value="all" {% if not only_yours %}checked{% endif %}>
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                All users
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
+                                   value="yours" {% if only_yours %}checked{% endif %}>
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                Only yours
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-info">Filter</button>
+                    </form>
+                </div>
+                {% endif%}
+
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            {% for quote in quotes %}
+            <div class="quote-block">
+                <!-- Content for the center panel -->
+
+                {% if user.is_authenticated %}
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <!-- User avatar -->
+                    </div>
+                    <div class="user-name">User: {{quote.user_id|user}}</div>
+                </div>
+                {% endif %}
+
+                <div class="quote-text">
+
+                    {% if user.is_authenticated and user == quote.user %}
+                    <button type="button" class="btn btn-light"
+                            onclick="window.location.href='{% url 'quotes:quote_update' quote_id=quote.id %}'"
+                            style="text-align: left;">{{quote.quote}}
+                    </button>
+                    {% else %}
+                    <button type="button" class="btn btn-light"
+                            onclick="window.location.href='{% url 'quotes:quote' quote_id=quote.id %}'"
+                            style="text-align: left;">{{quote.quote}}
+                    </button>
+                    {% endif %}
+
+                </div>
+
+
+                <div class="author-name">
+                    {% if user.is_authenticated and user == quote.user %}
+                    <button type="button" class="btn btn-light"
+                            onclick="window.location.href='{% url 'quotes:author_update' author_id=quote.author_id %}'"
+                            style="...">by: {{quote.author_id|author}}
+                    </button>
+                    {% else %}
+                    <button type="button" class="btn btn-light"
+                            onclick="window.location.href='{% url 'quotes:author' author_id=quote.author_id %}'"
+                            style="...">by: {{quote.author_id|author}}
+                    </button>
+                    {% endif %}
+
+                </div>
+
+                {% if user.is_authenticated and user == quote.user %}
+                <div class="tag"> Tags:
+                    <!-- Repeat for each tag -->
+                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                        {% for tag in quote.tags.all %}
+                        <a href="{% url 'quotes:edit_tag' tag_id=tag.id %}" class="btn btn-outline-primary">
+                            {{tag.name}}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% else %}
+                <div class="tag"> Tags:
+                    <!-- Repeat for each tag -->
+                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                        {% for tag in quote.tags.all %}
+                        <span class="btn btn-outline-primary">{{tag.name}}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+            </div>
+            {% endfor %}
+
+            <!-- Pagination links -->
+            {% if quotes.has_other_pages %}
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    {% if quotes.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ quotes.previous_page_number }}" tabindex="-1">Previous</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link" tabindex="-1" aria-disabled="true">Previous</span>
+                    </li>
+                    {% endif %}
+
+                    {% for page_num in quotes.paginator.page_range %}
+                    <li class="page-item {% if page_num == quotes.number %}active{% endif %}">
+                        <a class="page-link" href="{{ page_num }}">{{ page_num }}</a>
+                    </li>
+                    {% endfor %}
+
+                    {% if quotes.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ quotes.next_page_number }}">Next</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link" aria-disabled="true">Next</span>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+
+
+        </div>
+
+        <div class="right-panel">
+            <div class="tags-box-3"> Top Ten tags:
+                <!-- Content for the right panel -->
+                {% for tag_count in tag_counts %}
+                <div class="alert alert-info" role="alert" style="text-align: right; height: 30px; line-height: 5px;">
+                    {{ tag_count }}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

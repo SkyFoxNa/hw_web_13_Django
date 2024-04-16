@@ -1,0 +1,68 @@
+{% extends 'quotes/base.html' %}
+
+{% block title %}Profile User{% endblock %}
+
+{% block content %}
+<div class="title">
+    <div class="alert alert-secondary" role="alert">
+        <h1>
+            <a style="text-decoration: none">Profile User</a>
+        </h1>
+    </div>
+
+
+</div>
+<div class="row">
+
+    <div class="center-panel">
+
+        <div class="left-panel">
+        </div>
+
+        <div class="col-md-8">
+            <div class="quote-block">
+                <div>
+                    <h1>Profile page: {{user.username}}</h1>
+                    <img src="{{ user.profile.avatar.url }}" alt="avatar of user"/>
+                </div>
+
+                {% if messages %}
+                <div class="alert alert-info" role="alert">
+                    {% for message in messages %}
+                    <div {% if message.tags %} class="alert-{{ message.tags }}" {% endif %}>{{ message }}</div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label class="small mb-1">Change Avatar:</label>
+                                {{ profile_form.avatar }}
+                                <span>{{ profile_form.errors.avatar }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <button type="submit" class="btn btn-success">Save Changes</button>
+                        <button type="reset" class="btn btn-info">Reset</button>
+                    </div>
+
+                </form>
+                <button class="logout-btn btn btn-danger" onclick="window.location.href='{% url 'users:reset_password_site' %}'">Reset Password
+        </button>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="tags-box-3">
+                <!-- Content for the right panel -->
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'quotes/base.html' %}
+
+{% block title %}Quote List{% endblock %}
+
+{% block content %}
+<div class="title">
+    <h1>
+        <a style="text-decoration: none">Quote List</a>
+    </h1>
+
+</div>
+<div class="row">
+
+    <div class="center-panel">
+
+        <div class="left-panel">
+            <div class="tags-box-1">
+                <button type="button" class="btn btn-warning"
+                        onclick="window.location.href='{% url 'quotes:tags' %}'">Come back
+                </button>
+
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="quote-block">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+
+                </form>
+
+            </div>
+
+
+        </div>
+
+        <div class="right-panel">
+            <div class="tags-box-3">
+                <!-- Content for the right panel -->
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

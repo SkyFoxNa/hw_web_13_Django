@@ -1,0 +1,49 @@
+{% extends 'quotes/base.html' %}
+
+{% block title %}Scraping and migrate{% endblock %}
+
+{% block content %}
+<div class="title">
+    <div class="alert alert-secondary" role="alert" style="height: 60px; line-height: 5px;">
+        <h2>
+            <a style="text-decoration: none">Scraping and migrate</a>
+        </h2>
+    </div>
+
+</div>
+<div class="row">
+
+    <div class="center-panel">
+
+        <div class="left-panel">
+            <div class="tags-box-1"></div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="quote-block">
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" name="generate_quote" class="btn btn-dark">Scraping and migrate</button>
+                </form>
+
+                {% if messages %}
+                <div class="messages" style="margin-top: 50px;">
+                    {% for message in messages %}
+                    <span {% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %}>{{ message }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="tags-box-3">
+                <!-- Content for the right panel -->
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

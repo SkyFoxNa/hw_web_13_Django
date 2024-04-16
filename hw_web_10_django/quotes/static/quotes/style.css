@@ -1,0 +1,123 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* General styles */
+.menu {
+    display: flex;
+    justify-content: space-between;
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding-left: 5px;
+    padding-right: 5px; /* добавим отступы слева и справа */
+}
+
+.menu-item {
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-right: 10px;
+}
+
+.auth-buttons {
+    display: flex;
+    align-items: center; /* выравниваем элементы по вертикали */
+}
+
+.auth-buttons button {
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.content {
+    margin: 0 auto;
+    width: 80%;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.row {
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+.col-md-1 {
+    width: 20%;
+}
+.tags-box-1 {
+    text-align: left;
+}
+
+.center-panel {
+    display: flex;
+}
+
+.left-panel,
+.right-panel,
+.quote-block {
+    flex: 1; /* занимают оставшееся пространство */
+}
+
+.left-panel,
+.right-panel {
+    width: 200px; /* установим ширину панелей */
+    min-width: 100px; /* установить нужную минимальную ширину */
+    border: 2px solid #007eff61; /* изменяем цвет рамки */
+    border-radius: 10px;
+    padding: 10px;
+    margin-right: 10px; /* отступ между панелями */
+}
+
+.quote-block {
+    border: 2px solid #0addca; /* изменяем цвет рамки */
+    border-radius: 10px;
+    padding: 10px;
+    margin-right: 10px; /* отступ между панелями */
+    box-shadow: 2px 2px 3px #333333;
+    margin-bottom: 5px
+}
+
+.user-info,
+.author-name {
+    border: 2px solid blue; /* изменяем цвет рамки */
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 5px
+}
+
+.quote-text {
+    border: 2px solid blue; /* изменяем цвет рамки */
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 5px
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 5px
+}
+
+.tag {
+    border: 2px solid grey; /* изменяем цвет рамки */
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 50px;
+    padding: 10px;
+    background-color: #e9ecef;
+    border-radius: 10px;
+}
